@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import nsApi from '../../util/NSApi';
+
 import './Login.css';
 
 export default class Login extends Component {
@@ -19,16 +21,32 @@ export default class Login extends Component {
         this.setState({
             [event.target.id]: event.target.value
         })
+        console.log(event.target.id)
+        console.log(this.state)
     }
     // Handles login form submission 
     handleSubmit = event => {
         event.preventDefault(); 
+        let email = this.state.email
+        let password = this.state.password
+        console.log(email, password)
+        // The POST Request that we make when login happens
+        nsApi.signIn(email, password);
+
+
     }
     // Finally Render the component
     render() {
+    
         return (
-            <div>
-                <h4>REACT LOGIN</h4>
+            <div className="loginPage">
+                <h4>New Story - Survey Data </h4>
+                <form onSubmit={this.handleSubmit.bind(this)}>
+                    <h4>Sign In</h4>
+                    <input type="text" ref="email" id="email" placeholder="E-mail" onChange={this.handleChange} />
+                    <input type="password" ref="password" id="password" placeholder="Password" onChange={this.handleChange} />
+                    <input type="submit" value="Login" />
+                </form>
             </div>
         )
     }
