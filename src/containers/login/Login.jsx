@@ -32,8 +32,9 @@ export default class Login extends Component {
         console.log(email, password)
         // The POST Request that we make when login happens
         nsApi.signIn(email, password);
-
-
+    }
+    testAll() {
+        nsApi.viewAllReceipients();
     }
     // Finally Render the component
     render() {
@@ -47,6 +48,20 @@ export default class Login extends Component {
                     <input type="password" ref="password" id="password" placeholder="Password" onChange={this.handleChange} />
                     <input type="submit" value="Login" />
                 </form>
+                <br />
+                {
+                    /* This will be a new component that appears
+                    After Successful Login. Just using to test
+                    Login Tokens */
+                }
+                <button onClick={this.testAll}>viewAllReceipients</button>
+                <button>viewAllReceipientSurveys</button>
+                <button>viewSubmission</button>
+                <button>viewAllStats</button>
+                <br />
+                <pre>
+                    Code
+                </pre>
             </div>
         )
     }
