@@ -13,8 +13,6 @@ let accessToken;
   "query": "mutation {signInUser(email: \"{{email}}\", password:\"{{password}}\") { token viewer { uuid email firstName lastName } } }",
   "variables": null
 }"
-
-===== SETUP QUERY for SIGN IN=====
 */
 const signInQuery = (email, password) => {
     return {
@@ -68,6 +66,7 @@ const nsApi = {
             .then(jsonResponse => {
                 accessToken = jsonResponse.data.signInUser.token
                 console.log('Token storage', accessToken)
+                headers.headers.Authorization = accessToken
                 return accessToken;
             })
             // Needs Error Handling
@@ -75,9 +74,7 @@ const nsApi = {
 
     viewAllReceipients() {
         const payLoad = { body: JSON.stringify(viewAllReceipientsQuery())};
-        const newHeaders = headers;
-        newHeaders.headers.Authorization = accessToken;
-        const headerBody = {...newHeaders, ...payLoad}
+        const headerBody = {...headers, ...payLoad}
         console.log(headerBody)
         fetch(url, headerBody)
             .then(res => {
